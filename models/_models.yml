@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: provider
+    description: National provider data
+    config:
+      database: "{{ var('provider_database') }}"
+      schema: claims_data_model
+      materialized: table
+
+  - name: other_provider_taxonomy
+    description: Other provider taxonomies
+    config:
+      database: "{{ var('provider_database') }}"
+      schema: claims_data_model
+      materialized: table

@@ -1,0 +1,26 @@
+name: 'generate_provider_data'
+version: '0.1.0'
+config-version: 2
+
+profile: 'default'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+vars:
+  # This variable sets the name of the database
+  # where the output of the generated provider data will be
+  # dumped into. Make sure this database exists
+  # in your data warehouse before you run this package,
+  # since dbt can create schemas in your data warehouse,
+  # but it cannot create databases.
+  provider_database: dev_sarah # providers
