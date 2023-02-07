@@ -7,8 +7,10 @@
 This is an internal dbt project for generating the provider datasets.
 
 ## Pre-requisites
-  * NPPES "npidata_pfile...csv" has been loaded.
-  * NUCC "nucc_taxonomy...csv has been loaded.
+  * The monthly NPI data file has been downloaded/unzipped from [CMS](https://download.cms.gov/nppes/NPI_Files.html)
+    and loaded into the NPPES database in Snowflake.
+  * The semi-annual taxonomy file has been downloaded from [NUCC](https://nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40/csv-mainmenu-57) 
+    and loaded into the NPPES database in Snowflake
 
 *See _sources.yml for expected locations of source data.*
 

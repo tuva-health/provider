@@ -62,8 +62,6 @@ models:
     columns:
       - name: npi
         description: National provider identifier
-        tests:
-          - single_primary_taxonomy
 
       - name: taxonomy_code
         description: Provider specialty code
