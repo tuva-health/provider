@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: nppes
+    description: Raw provider data from NPPES and NUCC
+    database: nppes
+    schema: raw_data
+    tables:
+      - name: npi
+      - name: nucc_taxonomy
