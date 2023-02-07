@@ -7,6 +7,48 @@ models:
       database: "{{ var('provider_database') }}"
       schema: claims_data_model
       materialized: table
+    columns:
+      - name: npi
+        description: National provider identifier
+        tests:
+          - unique
+
+      - name: entity_type_code
+        description: Type of provider 1 or 2
+
+      - name: entity_type_description
+        description: Type of provider Individual or Organization
+
+      - name: primary_taxonomy_code
+        description: Primary specialty code
+
+      - name: primary_taxonomy_description
+        description: >
+          Primary specialty description (provider type, classification, 
+          and area of specialization)
+
+      - name: provider_name
+        description: >
+          Legal name (first name + last name or organization name depending 
+          on entity type)
+
+      - name: parent_organization_name
+        description: Legal Business Name of the parent organization
+
+      - name: practice_address_line_1
+        description: Physical address line 1
+
+      - name: practice_address_line_2
+        description: Physical address line 2
+
+      - name: practice_city
+        description: Physical address city
+
+      - name: practice_state
+        description: Physical address state
+
+      - name: practice_zip_code
+        description: Physical address zip code
 
   - name: other_provider_taxonomy
     description: Other provider taxonomies
@@ -14,3 +56,34 @@ models:
       database: "{{ var('provider_database') }}"
       schema: claims_data_model
       materialized: table
+    tests:
+      - unique:
+          column_name: "(npi||'-'||taxonomy_code)"
+    columns:
+      - name: npi
+        description: National provider identifier
+        tests:
+          - single_primary_taxonomy
+
+      - name: taxonomy_code
+        description: Provider specialty code
+
+      - name: taxonomy_description
+        description: >
+          Specialty description (provider type, classification, 
+          and area of specialization)
+
+      - name: taxonomy_grouping
+        description: A major grouping of services or occupations
+
+      - name: taxonomy_classification
+        description: >
+          A more specific service or occupation related to the provider grouping
+
+      - name: taxonomy_specialization
+        description: >
+          A more specialized area of the Classification in which a provider 
+          chooses to practice or make services available
+
+      - name: primary_flag
+        description: Boolean value to indicate primary taxonomy (specialty)
