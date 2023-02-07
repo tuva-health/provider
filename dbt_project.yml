@@ -23,4 +23,4 @@ vars:
   # in your data warehouse before you run this package,
   # since dbt can create schemas in your data warehouse,
   # but it cannot create databases.
-  provider_database: providers
+  provider_database: nppes
