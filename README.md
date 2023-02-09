@@ -7,10 +7,12 @@
 This is an internal dbt project for generating the provider datasets.
 
 ## Pre-requisites
-  * The monthly NPI data file has been downloaded/unzipped from [CMS](https://download.cms.gov/nppes/NPI_Files.html)
+  * The monthly NPI Data file has been downloaded/unzipped from [CMS](https://download.cms.gov/nppes/NPI_Files.html)
     and loaded into the NPPES database in Snowflake.
-  * The semi-annual taxonomy file has been downloaded from [NUCC](https://nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40/csv-mainmenu-57) 
-    and loaded into the NPPES database in Snowflake
+  * The semi-annual Taxonomy file has been downloaded from [NUCC](https://nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40/csv-mainmenu-57) 
+    and loaded into the NPPES database in Snowflake.
+  * The annual Medicare Specialty Crosswalk has been downloaded from [CMS](https://data.cms.gov/provider-characteristics/medicare-provider-supplier-enrollment/medicare-provider-and-supplier-taxonomy-crosswalk)
+    and loaded into the NPPES database in Snowflake.
 
 *See _sources.yml for expected locations of source data.*
 

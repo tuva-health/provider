@@ -1,8 +1,39 @@
 version: 2
 
 models:
+# Intermediate
+  - name: specialty_mapping
+    description: >
+      Mapping NUCC Taxonomy with Medicare Provider and Supplier Crosswalk to 
+      create concise specialty descriptions
+    config:
+      database: "{{ var('provider_database') }}"
+      schema: claims_data_model
+      materialized: view
+    columns:
+      - name: taxonomy_code
+        tests:
+          - unique
+      - name: medicare_specialty_code
+      - name: description
+
+  - name: taxonomy_unpivot
+    description: Unpivot provider taxonomies from NPPES data
+    config:
+      database: "{{ var('provider_database') }}"
+      schema: claims_data_model
+      materialized: view
+    columns:
+      - name: npi
+      - name: taxonomy_col
+      - name: taxonomy_code
+      - name: switch col
+      - name: taxonomy_switch
+
+
+  # Final
   - name: provider
-    description: National provider data
+    description: Cleaned and mapped national provider data
     config:
       database: "{{ var('provider_database') }}"
       schema: claims_data_model
@@ -20,12 +51,12 @@ models:
         description: Type of provider Individual or Organization
 
       - name: primary_taxonomy_code
-        description: Primary specialty code
+        description: Primary taxonomy code
 
-      - name: primary_taxonomy_description
+      - name: primary_specialty_description
         description: >
-          Primary specialty description (provider type, classification, 
-          and area of specialization)
+          Description of primary specialty using Medicare Provider and 
+          Supplier Types and NUCC taxonomy
 
       - name: provider_name
         description: >
@@ -64,24 +95,15 @@ models:
         description: National provider identifier
 
       - name: taxonomy_code
-        description: Provider specialty code
+        description: Taxonomy code
 
-      - name: taxonomy_description
+      - name: medicare_specialty_code
+        description: Medicare specialty code
+
+      - name: description
         description: >
-          Specialty description (provider type, classification, 
-          and area of specialization)
-
-      - name: taxonomy_grouping
-        description: A major grouping of services or occupations
-
-      - name: taxonomy_classification
-        description: >
-          A more specific service or occupation related to the provider grouping
-
-      - name: taxonomy_specialization
-        description: >
-          A more specialized area of the Classification in which a provider 
-          chooses to practice or make services available
+          Description of primary specialty using Medicare Provider and 
+          Supplier Types and NUCC taxonomy
 
       - name: primary_flag
-        description: Boolean value to indicate primary taxonomy (specialty)
+        description: Boolean value to indicate primary taxonomy
