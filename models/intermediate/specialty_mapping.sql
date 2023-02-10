@@ -57,14 +57,15 @@ joined as (
         , medicare_dedupe.medicare_specialty_code
         , case
             when medicare_dedupe.provider_taxonomy_code is not null
-            then split_part(
-                    split_part(
-                        replace(
-                            replace(medicare_dedupe.medicare_provider_supplier_type_description
-                            ,'Physician/', '')
-                        , '/ ', '/')
-                    , '(',0)
-                 , '[', 0)
+              and medicare_dedupe.medicare_provider_supplier_type_description is not null
+              then split_part(
+                      split_part(
+                          replace(
+                              replace(medicare_dedupe.medicare_provider_supplier_type_description
+                              ,'Physician/', '')
+                          , '/ ', '/')
+                      , '(',0)
+                   , '[', 0)
             else coalesce(nucc.specialization, nucc.classification)
           end as description
     from nucc

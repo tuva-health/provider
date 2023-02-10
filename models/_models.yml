@@ -81,6 +81,15 @@ models:
       - name: practice_zip_code
         description: Physical address zip code
 
+      - name: last_updated
+        description: Date the NPI was last updated
+
+      - name: deactivation_date
+        description: Date the NPI was deactivated
+
+      - name: deactivation_flag
+        description: Boolean value to indicate if the NPI has been deactivated
+
   - name: other_provider_taxonomy
     description: Other provider taxonomies
     config:
