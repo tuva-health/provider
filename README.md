@@ -30,12 +30,12 @@ Complete the following steps to configure the project to run in your environment
 1. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) this repo to your local machine or environment.
 2. Update the `dbt_project.yml` file:
    1. Add the dbt profile connected to your data warehouse.
-   2. Update the variable `provider_database` to use the new database you created for this project.
+   2. Update the variable `provider_database` to use the new database you created for this project, default is "nppes"..
 3. Update the `models/_sources.yml` file:
-   1. Update the database where your source data has been loaded.
-   2. Update the schema where your source data has been loaded.
+   1. Update the database where your source data has been loaded, default is "nppes".
+   2. Update the schema where your source data has been loaded, default is "raw_data".
    3. If the source tables are named differently then you can add the table [identifier](https://docs.getdbt.com/reference/resource-properties/identifier) property. 
-4. Run `dbt build` to run the entire project with the built-in sample data.
+4. Run `dbt build`.
 
 ## 🙋🏻‍♀️ **How is this project maintained and can I contribute?**
 
