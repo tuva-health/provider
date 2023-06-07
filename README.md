@@ -8,7 +8,7 @@ The Tuva Provider project combines and transforms messy public provider datasets
 This project contains the transformations we use to create the clean datasets for users of the Tuva Project. 
 We have made this project public to share our methodology and code. 
 
-You can easily load the cleaned provider data into your data warehouse by using [Tuva Terminology package](https://github.com/tuva-health/terminology).
+You can easily load the cleaned provider data into your data warehouse by using the terminology seeds from [The Tuva Project package](https://github.com/tuva-health/the_tuva_project).
 
 ## 🔌 Database Support
 
