@@ -45,10 +45,10 @@ models:
           - unique
 
       - name: entity_type_code
-        description: Type of provider 1 or 2
+        description: Type of provider 1 (Individual) or 2 (Organization)
 
       - name: entity_type_description
-        description: Type of provider Individual or Organization
+        description: Type of provider "Individual" or "Organization"
 
       - name: primary_taxonomy_code
         description: Primary taxonomy code
@@ -58,10 +58,14 @@ models:
           Description of primary specialty using Medicare Provider and 
           Supplier Types and NUCC taxonomy
 
-      - name: provider_name
-        description: >
-          Legal name (first name + last name or organization name depending 
-          on entity type)
+      - name: provider_first_name
+        description: Legal first name when entity type "Individual"
+
+      - name: provider_last_name
+        description: Legal last name when entity type "Individual"
+
+      - name: provider_organization_name
+        description: Legal organization name when entity type "Organization"
 
       - name: parent_organization_name
         description: Legal Business Name of the parent organization

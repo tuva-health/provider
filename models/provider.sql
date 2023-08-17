@@ -38,10 +38,9 @@ select
         end as entity_type_description
     , primary_taxonomy.taxonomy_code as primary_taxonomy_code
     , primary_taxonomy.description as primary_specialty_description
-    , case
-        when npi_source.entity_type_code = '1' then initcap(concat(npi_source.provider_last_name, ', ', npi_source.provider_first_name))
-        when npi_source.entity_type_code = '2' then initcap(npi_source.provider_organization_name)
-      end as provider_name
+    , initcap(npi_source.provider_first_name) as provider_first_name
+    , initcap(npi_source.provider_last_name) as provider_last_name
+    , initcap(npi_source.provider_organization_name) as provider_organization_name
     , initcap(npi_source.parent_organization_lbn) as parent_organization_name
     , initcap(npi_source.provider_first_line_business_practice_location_address) as practice_address_line_1
     , initcap(npi_source.provider_second_line_business_practice_location_address) as practice_address_line_2
