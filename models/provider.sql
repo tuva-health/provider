@@ -5,6 +5,7 @@ with npi_source as (
         , entity_type_code
         , provider_last_name
         , provider_first_name
+        , provider_credential_text
         , provider_organization_name
         , parent_organization_lbn
         , provider_first_line_business_practice_location_address
@@ -12,6 +13,9 @@ with npi_source as (
         , provider_business_practice_location_address_city_name
         , provider_business_practice_location_address_state_name
         , provider_business_practice_location_address_postal_code
+        , provider_business_mailing_address_telephone_number
+        , provider_business_practice_location_address_telephone_number
+        , authorized_official_telephone_number
         , last_update_date
         , npi_deactivation_date
     from {{ source('nppes', 'npi') }}
@@ -40,6 +44,7 @@ select
     , primary_taxonomy.description as primary_specialty_description
     , initcap(npi_source.provider_first_name) as provider_first_name
     , initcap(npi_source.provider_last_name) as provider_last_name
+    , npi_source.provider_credential_text as provider_credential
     , initcap(npi_source.provider_organization_name) as provider_organization_name
     , initcap(npi_source.parent_organization_lbn) as parent_organization_name
     , initcap(npi_source.provider_first_line_business_practice_location_address) as practice_address_line_1
@@ -47,6 +52,9 @@ select
     , initcap(npi_source.provider_business_practice_location_address_city_name) as practice_city
     , npi_source.provider_business_practice_location_address_state_name as practice_state
     , npi_source.provider_business_practice_location_address_postal_code as practice_zip_code
+    , npi_source.provider_business_mailing_address_telephone_number as mailing_telephone_number
+    , npi_source.provider_business_practice_location_address_telephone_number as location_telephone_number
+    , npi_source.authorized_official_telephone_number as official_telephone_number
     , cast(last_update_date as date) as last_updated
     , cast(npi_deactivation_date as date) as deactivation_date
     , case
