@@ -10,6 +10,15 @@ We have made this project public to share our methodology and code.
 
 You can easily load the cleaned provider data into your data warehouse by using the terminology seeds from [The Tuva Project package](https://github.com/tuva-health/the_tuva_project).
 
+Source data dependencies:
+
+| Data Set                                              | Updated by Source                | Source                                                                                         |
+|-------------------------------------------------------|----------------------------------|------------------------------------------------------------------------------------------------|
+| NPPES Data Dissemination                              | Monthly                          | https://download.cms.gov/nppes/NPI_Files.html                                                  |
+| NUCC Health Care Provider Taxonomy                    | Semi-annually (January and July) | https://nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40/csv-mainmenu-57 |
+| CMS Medicare Provider and Supplier Taxonomy Crosswalk | Annually                         | https://data.cms.gov/provider-characteristics/medicare-provider-supplier-enrollment/medicare-provider-and-supplier-taxonomy-crosswalk |
+
+
 ## 🔌 Database Support
 
 - Snowflake
@@ -19,10 +28,10 @@ You can easily load the cleaned provider data into your data warehouse by using 
 ### Pre-requisites
 1. You have [dbt](https://www.getdbt.com/) installed and configured (i.e. connected to your data warehouse). If you have not installed dbt, [here](https://docs.getdbt.com/dbt-cli/installation) are instructions for doing so.
 2. You have created a database for the output of this project to be written in your data warehouse.
-3. You have downloaded the source data and loaded it into your data warehouse.
-   * NPI Data from [NPPES](https://download.cms.gov/nppes/NPI_Files.html)
-   * Provider Taxonomy from [NUCC](https://nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40/csv-mainmenu-57)
-   * Medicare Specialty Crosswalk from [CMS](https://data.cms.gov/provider-characteristics/medicare-provider-supplier-enrollment/medicare-provider-and-supplier-taxonomy-crosswalk)
+3. You have downloaded the source data and loaded it into a staging table your data warehouse.
+   * NPPES NPI Data *(Note: source data comes zipped with many files, only the "npidata_pfile....csv" is required.*)
+   * NUCC Health Care Provider Taxonomy
+   * CMS Medicare Provider and Supplier Taxonomy Crosswalk
 
 ### Getting Started
 Complete the following steps to configure the project to run in your environment.
@@ -36,6 +45,39 @@ Complete the following steps to configure the project to run in your environment
    2. Update the schema where your source data has been loaded, default is "raw_data".
    3. If the source tables are named differently then you can add the table [identifier](https://docs.getdbt.com/reference/resource-properties/identifier) property. 
 4. Run `dbt build`.
+5. For Tuva Terminology seeds, we export this data as CSV and then load it to the Tuva Public Resources bucket in Amazon S3.
+   Here are some SQL examples for exporting the data from Snowflake:
+   1. Standard Provider seed export:
+      ```sql
+      copy into --YOUR_S3_URL.../provider.csv
+        from NPPES.CLAIMS_DATA_MODEL.PROVIDER
+      file_format =  (type = csv field_optionally_enclosed_by = '"')
+      storage_integration = --YOUR_INTEGRATION
+      overwrite = true;
+      ```
+   2. Compressed Provider seed export:
+      ```sql
+      copy into --YOUR_S3_URL.../provider_compressed.csv.gz
+        from NPPES.CLAIMS_DATA_MODEL.PROVIDER
+      file_format = (
+          type = csv
+          field_optionally_enclosed_by = '"'
+          compression = gzip
+      )
+      header = true
+      max_file_size = 4900000000
+      overwrite = true
+      single = true
+      storage_integration = --YOUR_INTEGRATION
+      ```
+   3. Standard Other Provider Taxonomy seed export:
+      ```sql
+      copy into --YOUR_S3_URL.../other_provider_taxonomy.csv
+        from NPPES.CLAIMS_DATA_MODEL.OTHER_PROVIDER_TAXONOMY
+      file_format =  (type = csv field_optionally_enclosed_by = '"')
+      storage_integration = --YOUR_INTEGRATION
+      overwrite = true;
+      ```
 
 ## 🙋🏻‍♀️ **How is this project maintained and can I contribute?**
 
