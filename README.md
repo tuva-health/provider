@@ -78,6 +78,21 @@ Complete the following steps to configure the project to run in your environment
       storage_integration = --YOUR_INTEGRATION
       overwrite = true;
       ```
+   4. Compressed Other Provider Taxonomy seed export:
+      ```sql
+      copy into --YOUR_S3_URL.../other_provider_taxonomy_compressed.csv.gz
+        from NPPES.CLAIMS_DATA_MODEL.PROVIDER
+      file_format = (
+          type = csv
+          field_optionally_enclosed_by = '"'
+          compression = gzip
+      )
+      header = true
+      max_file_size = 4900000000
+      overwrite = true
+      single = true
+      storage_integration = --YOUR_INTEGRATION
+      ```
 
 ## 🙋🏻‍♀️ **How is this project maintained and can I contribute?**
 
