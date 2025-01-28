@@ -58,14 +58,7 @@ joined as (
         , case
             when medicare_dedupe.provider_taxonomy_code is not null
               and medicare_dedupe.medicare_provider_supplier_type_description is not null
-              then split_part(
-                      split_part(
-                          replace(
-                              replace(medicare_dedupe.medicare_provider_supplier_type_description
-                              ,'Physician/', '')
-                          , '/ ', '/')
-                      , '(',0)
-                   , '[', 0)
+              then medicare_dedupe.medicare_provider_supplier_type_description
             else coalesce(nucc.specialization, nucc.classification)
           end as description
     from nucc
@@ -74,4 +67,29 @@ joined as (
 
 )
 
-select * from joined
+,clean_description as (
+
+    select 
+          taxonomy_code
+        , medicare_specialty_code
+        , REPLACE(
+            REGEXP_REPLACE(
+                REGEXP_REPLACE(
+                    REGEXP_REPLACE(
+                        REGEXP_REPLACE(
+                            description,
+                            'Physician/', ''
+                        ),
+                        ',', '/'
+                    ),
+                    '\\s*\\([^\\)]*\\)', ''
+                ),
+                '\\s*\\[[^\\]]*\\]', ''
+            ),
+            '/ ', '/'
+        ) AS description
+    from joined
+
+)
+
+select * from clean_description
