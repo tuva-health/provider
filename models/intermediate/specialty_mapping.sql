@@ -65,29 +65,24 @@ joined as (
          left join medicare_dedupe
          on nucc.code = medicare_dedupe.provider_taxonomy_code
 
-)
+),
 
-,clean_description as (
+clean_description as (
 
     select 
           taxonomy_code
         , medicare_specialty_code
-        , REPLACE(
-            REGEXP_REPLACE(
-                REGEXP_REPLACE(
-                    REGEXP_REPLACE(
-                        REGEXP_REPLACE(
+        , replace(                  
+            regexp_replace(                     -- Remove content inside square brackets
+                regexp_replace(                 -- Remove content inside parentheses
+                    replace(                    -- Replace commas with slashes
+                        replace(
                             description,
-                            'Physician/', ''
-                        ),
-                        ',', '/'
-                    ),
-                    '\\s*\\([^\\)]*\\)', ''
-                ),
-                '\\s*\\[[^\\]]*\\]', ''
-            ),
-            '/ ', '/'
-        ) AS description
+                            'Physician/', ''),
+                        ',', '/'),
+                    '\\s*\\([^\\)]*\\)', ''),
+                '\\s*\\[[^\\]]*\\]', ''),
+            '/ ', '/') AS description
     from joined
 
 )
