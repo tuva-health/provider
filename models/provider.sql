@@ -28,7 +28,7 @@ with npi_source as (
           npi
         , provider_other_organization_name
         , provider_other_organization_name_type_code
-        , case /* According to CMS NPPES Data Dissemination - Code Values; these descriptions aren't available in the file used */
+        , case /* According to CMS NPPES Data Dissemination - Code Values pdf; these descriptions aren't available in the file used */
             when provider_other_organization_name_type_code = '1' then 'Former Name'
             when provider_other_organization_name_type_code = '2' then 'Professional Name'
             when provider_other_organization_name_type_code = '3' then 'Doing Business As'
