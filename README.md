@@ -29,7 +29,7 @@ Source data dependencies:
 1. You have [dbt](https://www.getdbt.com/) installed and configured (i.e. connected to your data warehouse). If you have not installed dbt, [here](https://docs.getdbt.com/dbt-cli/installation) are instructions for doing so.
 2. You have created a database for the output of this project to be written in your data warehouse.
 3. You have downloaded the source data and loaded it into a staging table your data warehouse.
-   * NPPES NPI Data *(Note: source data comes zipped with many files, only the "npidata_pfile....csv" is required.*)
+   * NPPES NPI Data *(Note: source data comes zipped with many files, only the "npidata_pfile....csv" and "othername_pfile....csv" are required.*)
    * NUCC Health Care Provider Taxonomy
    * CMS Medicare Provider and Supplier Taxonomy Crosswalk
 

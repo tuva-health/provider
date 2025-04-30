@@ -7,5 +7,6 @@ sources:
     schema: raw_data
     tables:
       - name: npi
+      - name: npi_othername
       - name: nucc_taxonomy
       - name: medicare_specialty_crosswalk
