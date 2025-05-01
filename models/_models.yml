@@ -43,6 +43,7 @@ models:
         description: National provider identifier
         tests:
           - unique
+          - not_null
 
       - name: entity_type_code
         description: Type of provider 1 (Individual) or 2 (Organization)
