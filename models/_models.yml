@@ -17,19 +17,6 @@ models:
       - name: medicare_specialty_code
       - name: description
 
-  - name: taxonomy_unpivot
-    description: Unpivot provider taxonomies from NPPES data
-    config:
-      database: "{{ var('provider_database') }}"
-      schema: claims_data_model
-      materialized: table
-    columns:
-      - name: npi
-      - name: taxonomy_col
-      - name: taxonomy_code
-      - name: switch col
-      - name: taxonomy_switch
-
 
   # Final
   - name: provider
@@ -121,3 +108,16 @@ models:
 
       - name: primary_flag
         description: Boolean value to indicate primary taxonomy
+
+  - name: taxonomy_unpivot
+    description: Unpivot provider taxonomies from NPPES data
+    config:
+      database: "{{ var('provider_database') }}"
+      schema: claims_data_model
+      materialized: table
+    columns:
+      - name: npi
+      - name: taxonomy_col
+      - name: taxonomy_code
+      - name: switch col
+      - name: taxonomy_switch
