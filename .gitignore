@@ -5,3 +5,7 @@ logs/
 .idea/
 .DS_Store
 dbt_packages/
+.env
+profiles.yml
+.venv
+.user.yml

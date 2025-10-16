@@ -22,7 +22,7 @@ models:
     config:
       database: "{{ var('provider_database') }}"
       schema: claims_data_model
-      materialized: view
+      materialized: table
     columns:
       - name: npi
       - name: taxonomy_col
